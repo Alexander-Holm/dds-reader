@@ -1,4 +1,4 @@
-import readDDS from "/dist/index.js";
+import readDDS from "../dist/index.js";
 
 window.onload = async () => {    
     const response = await fetch("./test.dds");
