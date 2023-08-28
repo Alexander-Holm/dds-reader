@@ -1,1 +1,4 @@
+# "dist" folder should not be ignored,
+# it's used for the preview page hosted on Github Pages.
+
 node_modules/
