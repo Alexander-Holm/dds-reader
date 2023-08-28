@@ -1,4 +1,4 @@
-import readDDS from "../dist/index.js";
+import readDDS from "/dist/index.js";
 
 window.onload = async () => {    
     const response = await fetch("./test.dds");
@@ -32,7 +32,7 @@ async function printFile(file, title){
         const properties = null; // All
         const json = JSON.stringify(ddsFileLayout, properties, indentation);
         
-        console.log(ddsFileLayout);        
+        console.log(title, ddsFileLayout);        
         outputElement.innerHTML = json;
         // Apply style form Google code-prettify.
         // Have to remove class for reprinting to work,
