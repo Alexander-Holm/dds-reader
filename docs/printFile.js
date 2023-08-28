@@ -1,7 +1,7 @@
 import readDDS from "../dist/index.js";
 
 window.onload = async () => {    
-    const response = await fetch("./test.dds");
+    const response = await fetch("docs/test.dds");
     const file = await response.arrayBuffer();
     printFile(file, "Example output");
 };
