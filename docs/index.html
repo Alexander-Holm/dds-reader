@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
+    <script type="module" src="printFile.js"></script>
+</head>
+<body>
+    <h1>dds-reader</h1>
+    <form onsubmit="fileSubmit(event)">
+        <label for="image">Select .dds file</label>
+        <input type="file" name="image" />
+        <button type="submit">Read file</button>
+    </form>
+    <div id="output">
+        <span id="fileName"></span>
+        <pre id="json" class="prettyprint"></pre>
+    </div>
+</body>
+</html>

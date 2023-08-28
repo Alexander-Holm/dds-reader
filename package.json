@@ -1,0 +1,18 @@
+{
+  "name": "dds-reader",
+  "version": "1.0.0",
+  "description": "TODO",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    ".dds"
+  ],
+  "author": "Alexander Holm",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^5.1.6"
+  }
+}
