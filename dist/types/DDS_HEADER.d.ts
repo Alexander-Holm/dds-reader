@@ -16,23 +16,7 @@ export default interface DDS_HEADER {
     dwDepth: number;
     dwMipMapCount: number;
     dwReserved1: Uint32Array;
-    ddspf: {
-        ddwSize: number;
-        dwFlags: {
-            DDPF_ALPHAPIXELS: boolean;
-            DDPF_ALPHA: boolean;
-            DDPF_FOURCC: boolean;
-            DDPF_RGB: boolean;
-            DDPF_YUV: boolean;
-            DDPF_LUMINANCE: boolean;
-        };
-        dwFourCC: number;
-        dwRGBBitCount: number;
-        dwRBitMask: number;
-        dwGBitMask: number;
-        dwBBitMask: number;
-        dwABitMask: number;
-    };
+    ddspf: DDS_PIXELFORMAT;
     dwCaps: {
         DDSCAPS_COMPLEX: boolean;
         DDSCAPS_MIPMAP: boolean;
@@ -51,4 +35,21 @@ export default interface DDS_HEADER {
     dwCaps3: number;
     dwCaps4: number;
     dwReserved2: number;
+}
+export interface DDS_PIXELFORMAT {
+    ddwSize: number;
+    dwFlags: {
+        DDPF_ALPHAPIXELS: boolean;
+        DDPF_ALPHA: boolean;
+        DDPF_FOURCC: boolean;
+        DDPF_RGB: boolean;
+        DDPF_YUV: boolean;
+        DDPF_LUMINANCE: boolean;
+    };
+    dwFourCC: number;
+    dwRGBBitCount: number;
+    dwRBitMask: number;
+    dwGBitMask: number;
+    dwBBitMask: number;
+    dwABitMask: number;
 }

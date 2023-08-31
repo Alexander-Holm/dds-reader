@@ -2,6 +2,20 @@ import { DXGI_FORMAT } from "../enums/DXGI_FORMAT.js";
 import { FOUR_CC } from "../enums/FOUR_CC.js";
 // Microsoft recommends manually calculating pitch
 // https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide
+/*
+    we recommend that you compute the pitch in one of the following ways for the indicated formats:
+
+  * For block-compressed formats, compute the pitch as:
+    max( 1, ((width+3)/4) ) * block-size
+    The block-size is 8 bytes for DXT1, BC1, and BC4 formats, and 16 bytes for other block-compressed formats.
+    
+  * For R8G8_B8G8, G8R8_G8B8, legacy UYVY-packed, and legacy YUY2-packed formats, compute the pitch as:
+    ((width+1) >> 1) * 4
+
+  * For other formats, compute the pitch as:
+    ( width * bits-per-pixel + 7 ) / 8
+    You divide by 8 for byte alignment.
+*/
 // Using Math.floor() because division should be done with integers
 export default function manuallyCalculatePitch(blockSize, width, bitsPerPixel, fourCC, dxgiFormat) {
     if (blockSize === undefined)

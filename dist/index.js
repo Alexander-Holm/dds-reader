@@ -1,6 +1,33 @@
-import { FOUR_CC } from "./enums/FOUR_CC.js";
 import isFlagSet from "./functions/isFlagSet.js";
 import manuallyCalculatePitch from "./functions/manuallyCalculatePitch.js";
+import DDS_HEADER, { DDS_PIXELFORMAT } from "./types/DDS_HEADER.js";
+import DDS_HEADER_DXT10 from "./types/DDS_HEADER_DXT10.js";
+import { FOUR_CC } from "./enums/FOUR_CC.js";
+import { DXGI_FORMAT } from "./enums/DXGI_FORMAT.js";
+/**
+ * Returns an object with the structure described in the
+ * {@link https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide | DDS file specification}.
+ * Flags are represented as objects containing named booleans,
+ * {@link DDS_HEADER | see DDS_HEADER}.
+ *
+ * @param byteArray -
+ * The .dds file as an ArrayBuffer
+ *
+ * @param calculatePitch -
+ * Microsoft recommends calculating the pitch manually
+ * instead of reading it from the file,
+ * {@link https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide | see link}.
+ *
+ * Set to false to read pitch directly from the file.
+ *
+ * @param blockSize -
+ * Manually set the block size that will be used when calculating pitch.
+ * Use this if pitch is not being calculated correctly and you know the
+ * {@link https://learn.microsoft.com/en-us/windows/win32/direct3d11/texture-block-compression-in-direct3d-11 | block compression format}.
+ *
+ * By default the block size is inferred from the values in {@link DDS_PIXELFORMAT.dwFourCC} and {@link DDS_HEADER_DXT10.dxgiFormat}.
+ * See the files {@link FOUR_CC} and {@link DXGI_FORMAT} for what values the block size can be automatically determined.
+ */
 export default function readDDS(byteArray, calculatePitch = true, blockSize) {
     var _a;
     const minimumFileSize = 128; // bytes
@@ -35,16 +62,7 @@ export default function readDDS(byteArray, calculatePitch = true, blockSize) {
             },
             dwHeight: metaData[i++],
             dwWidth: metaData[i++],
-            /*
-            dwPitchOrLinearSize is taken directly from the file,
-            Microsoft recommends calculating pitch manually.
-            https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide
-            "The D3DX library (for example, D3DX11.lib) and other similar libraries unreliably or inconsistently
-            provide the pitch value in the dwPitchOrLinearSize member of the DDS_HEADER structure.
-            Therefore, when you read and write to DDS files,
-            we recommend that you compute the pitch in one of the following ways for the indicated formats:"
-            See link
-            */
+            // May be manually calculated later
             dwPitchOrLinearSize: metaData[i++],
             dwDepth: metaData[i++],
             dwMipMapCount: metaData[i++],
@@ -134,11 +152,9 @@ export default function readDDS(byteArray, calculatePitch = true, blockSize) {
     else {
         const pitch = manuallyCalculatePitch(blockSize, ddsFileLayout.header.dwWidth, ddsFileLayout.header.ddspf.dwRGBBitCount, ddsFileLayout.header.ddspf.dwFourCC, (_a = ddsFileLayout.header10) === null || _a === void 0 ? void 0 : _a.dxgiFormat);
         if (pitch <= 0) {
-            // TODO: test if the message works
             const message = "Pitch could not be manually calculated.\n" +
                 "Without pitch the size of bdata can not be determined.\n" +
-                "You can try calling the function with the calculatePitch parameter set to false, " +
-                "or using the blockSize parameter if the image is in a block compressed format.";
+                "You can try calling the function with the calculatePitch parameter set to false or using the blockSize parameter.";
             throw new Error(message);
         }
         bdataSize = pitch * ddsFileLayout.header.dwHeight;

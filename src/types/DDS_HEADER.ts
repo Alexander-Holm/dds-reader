@@ -16,26 +16,8 @@ export default interface DDS_HEADER{
     dwPitchOrLinearSize: number,
     dwDepth: number,
     dwMipMapCount: number,
-    dwReserved1: Uint32Array,
-    // DDS_PIXELFORMAT structure
-    // https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dds-pixelformat     
-    ddspf: { 
-        ddwSize: number,
-        dwFlags: {
-            DDPF_ALPHAPIXELS:   boolean,
-            DDPF_ALPHA:         boolean,
-            DDPF_FOURCC:        boolean,
-            DDPF_RGB:           boolean,
-            DDPF_YUV:           boolean,
-            DDPF_LUMINANCE:     boolean,
-        },
-        dwFourCC: number,
-        dwRGBBitCount: number,
-        dwRBitMask: number,
-        dwGBitMask: number,
-        dwBBitMask: number,
-        dwABitMask: number,
-    }, 
+    dwReserved1: Uint32Array,    
+    ddspf: DDS_PIXELFORMAT,
     dwCaps: {
         DDSCAPS_COMPLEX:    boolean,
         DDSCAPS_MIPMAP:     boolean,
@@ -54,4 +36,27 @@ export default interface DDS_HEADER{
     dwCaps3: number,
     dwCaps4: number,
     dwReserved2: number,
+}
+
+// DDS_PIXELFORMAT structure
+// https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dds-pixelformat
+// This is part of DDS_HEADER.
+// It has to be its own exported interface,
+// otherwise JSDoc can't link to it.
+export interface DDS_PIXELFORMAT{
+    ddwSize: number,
+    dwFlags: {
+        DDPF_ALPHAPIXELS:   boolean,
+        DDPF_ALPHA:         boolean,
+        DDPF_FOURCC:        boolean,
+        DDPF_RGB:           boolean,
+        DDPF_YUV:           boolean,
+        DDPF_LUMINANCE:     boolean,
+    },
+    dwFourCC: number,
+    dwRGBBitCount: number,
+    dwRBitMask: number,
+    dwGBitMask: number,
+    dwBBitMask: number,
+    dwABitMask: number,
 }
