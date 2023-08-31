@@ -1,9 +1,6 @@
 import isFlagSet from "./functions/isFlagSet.js";
 import manuallyCalculatePitch from "./functions/manuallyCalculatePitch.js";
-import DDS_HEADER, { DDS_PIXELFORMAT } from "./types/DDS_HEADER.js";
-import DDS_HEADER_DXT10 from "./types/DDS_HEADER_DXT10.js";
 import { FOUR_CC } from "./enums/FOUR_CC.js";
-import { DXGI_FORMAT } from "./enums/DXGI_FORMAT.js";
 /**
  * Returns an object with the structure described in the
  * {@link https://learn.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide | DDS file specification}.
