@@ -1,0 +1,1 @@
+After compiling Typescript, imports need to be MANUALLY added to index.js and index.d.ts in the "dist" folder, for everything linked with @link in JSDoc!
