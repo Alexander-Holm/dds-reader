@@ -1,7 +1,7 @@
 import readDDS from "../dist/index.js";
 
 window.onload = async () => {    
-    const response = await fetch("./preview/test.dds");
+    const response = await fetch("./preview/example.dds");
     const file = await response.arrayBuffer();
     printFile(file, "Example output");
 };
@@ -44,5 +44,6 @@ async function printFile(file, title){
     }
     catch(error){
         outputElement.innerHTML = error.message;
+        console.error(error);
     }
 }
